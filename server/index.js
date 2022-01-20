@@ -49,7 +49,7 @@ app.post("/addvenue", (req,res) => {
     })
 });
 
-app.post("/api/insert", (req,res) => {
+app.post("/api/sendqualm", (req,res) => {
     const feedback = req.body.feedback
     const venue = req.body.venue
     console.log("Request to insert: " + feedback + " about " + venue);

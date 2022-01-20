@@ -8,7 +8,7 @@ function App() {
 
 
   const submitQualm = () => {
-    Axios.post('http://localhost:3001/api/insert', {
+    Axios.post('http://localhost:3001/api/sendqualm', {
       feedback: feedbackTxt,
       venue: venueTitle
     }).then( () => {
