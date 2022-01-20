@@ -16,8 +16,12 @@ function App() {
     })
   }
 
+  const addVenue = () => {
+    // Axios post stuff to backend.
+  }
+
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get").then((response)=>{
+    Axios.get("http://localhost:3001/api/getvenues").then((response)=>{
       console.log(response);// currently just mcdonalds. Need to make a function to add venue
     })
   }, []);
@@ -26,7 +30,11 @@ function App() {
     <div className="App">
       <h1>Qualms</h1>
       <div className='form'>
-        <label>Venue:</label>
+        <div className='row'>
+          <label>Venue:</label>
+          <button onClick={addVenue}>Add</button>
+        </div>
+
         <input type='text' name='venueTitle' onChange={(e)=> {
           setVenueTitle(e.target.value);
         }}/>
