@@ -16,6 +16,12 @@ function App() {
     })
   }
 
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/get").then((response)=>{
+      console.log(response);// currently just mcdonalds. Need to make a function to add venue
+    })
+  }, []);
+
   return (
     <div className="App">
       <h1>Qualms</h1>

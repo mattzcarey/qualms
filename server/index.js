@@ -28,9 +28,10 @@ app.get("/", (req,res) => {
 
 app.get("/api/get", (req,res) => {
 
-    const sqlInsert = "INSERT INTO feedbackTable (qualmtext, venues_venuename) VALUES (?, 'mcdonalds');"
-    db.query(sqlInsert,[feedback, venue], (err, result) => {
-        console.log(result + err);
+    const sqlSelect = "SELECT * from venues;"
+    db.query(sqlSelect, (err, result) => {
+        // console.log(result + err);
+        res.send(result);
     })
 });
 
