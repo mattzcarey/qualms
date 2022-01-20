@@ -33,7 +33,7 @@ app.get("/", (req,res) => {
 
 app.get("/api/getvenues", (req,res) => {
 
-    const sqlSelect = "SELECT * from venues;"
+    const sqlSelect = "SELECT venuename from venues;"
     db.query(sqlSelect, (err, result) => {
         // console.log(result + err);
         res.send(result);
