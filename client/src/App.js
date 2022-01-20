@@ -34,7 +34,7 @@ function App() {
   const addVenue = () => {
     // Axios post stuff to backend.
     Axios.post('http://localhost:3001/api/addvenue', {
-      venuename: venueTitle
+      venueName: venueTitle
     }).then( () => {
       alert('added venue successfully')
     } )
@@ -52,12 +52,12 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getvenues").then((response)=>{
       console.log(response);// currently just mcdonalds. Need to make a function to add venue
-      let venuelist = []
-      for (const venu in response.data) {
-        venuelist.append(venu.venuename)
+      let venueList = []
+      for (let name in response.data) {
+        venueList = [...venueList, name]
       }
-      setDropdownOptions(venuelist)
-      // response.data.venuename
+      setDropdownOptions(venueList)
+      // response.data.venueName
     })
   }, []);
 
@@ -78,7 +78,7 @@ function App() {
         <input type='text' name='venueTitle' onChange={(e)=> {
           setVenueTitle(e.target.value);
         }}/>
-        <label>Anonomous Feedback:</label>
+        <label>Anonymous Feedback:</label>
         <input type="text" name="feedbackTxt" onChange={(e)=> {
           setFeedbackTxt(e.target.value);
         }}/>
