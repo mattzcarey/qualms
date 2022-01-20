@@ -43,6 +43,7 @@ function App() {
   //Dropdown selection happened
   const dropdownSelected = (selected) => {
     console.log(selected);
+    setVenueTitle(selected)
     //set venueTitle
 
   }
@@ -53,10 +54,18 @@ function App() {
     Axios.get("http://localhost:3001/api/getvenues").then((response)=>{
       console.log(response);// currently just mcdonalds. Need to make a function to add venue
       let venueList = []
-      for (let name in response.data.map) {
-        venueList = [...venueList, name.value.toString()]
+      let repsonseindex = 0
+      const jsonString = JSON.stringify(response.data)
+      const obj = JSON.parse(jsonString)
+      const responseLength = response.data.jsonString
+      console.log("response length : " + responseLength)
+      for (let name in response.data) {
+        // const venueName = name
+        venueList = [...venueList, name.venuename]
+        repsonseindex += 1
       }
-      setDropdownOptions(venueList)
+      const manuallist = [response.data[0].venuename, response.data[1].venuename, response.data[2].venuename]
+      setDropdownOptions(manuallist)
       // response.data.venueName
     })
   }, []);
