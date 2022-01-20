@@ -52,7 +52,11 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getvenues").then((response)=>{
       console.log(response);// currently just mcdonalds. Need to make a function to add venue
-      // setDropdownOptions(response.data)
+      let venuelist = []
+      for (const venu in response.data) {
+        venuelist.append(venu.venuename)
+      }
+      setDropdownOptions(venuelist)
       // response.data.venuename
     })
   }, []);
