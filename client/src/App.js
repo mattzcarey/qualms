@@ -18,6 +18,11 @@ function App() {
 
   const addVenue = () => {
     // Axios post stuff to backend.
+    Axios.post('http://localhost:3001/api/addvenue', {
+      venuename: venueTitle
+    }).then( () => {
+      alert('added venue successfully')
+    } )
   }
 
   useEffect(() => {

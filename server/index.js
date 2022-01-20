@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-//Get Methods - requests out client make to us.
+//Get Methods - requests that the client make to us.
 
 app.get("/", (req,res) => {
     res.send("Hello, you shouldn't be here.");
@@ -41,10 +41,10 @@ app.get("/api/getvenues", (req,res) => {
 });
 
 
-app.post("/addvenue", (req,res) => {
-    const venuename = req.data.body;
-    const sqlInsert = "INSERT INTO venues (venuename) VALUES ('mcdonalds');"
-    db.query(sqlInsert, (err, result) => {
+app.post("/api/addvenue", (req,res) => {
+    const venuename = req.body.venuename;
+    const sqlInsert = "INSERT INTO venues (venuename) VALUES (?);"
+    db.query(sqlInsert, [venuename], (err, result) => {
         res.send(result + err);
     })
 });
@@ -53,9 +53,9 @@ app.post("/api/sendqualm", (req,res) => {
     const feedback = req.body.feedback
     const venue = req.body.venue
     console.log("Request to insert: " + feedback + " about " + venue);
-    const sqlInsert = "INSERT INTO feedbackTable (qualmtext, venues_venuename) VALUES (?, 'mcdonalds');"
+    const sqlInsert = "INSERT INTO feedbackTable (qualmtext, venues_venuename) VALUES (?, ?);"
     db.query(sqlInsert,[feedback, venue], (err, result) => {
-        console.log(result + err);
+        console.log(result + ":" +  err);
     })
 });
 
