@@ -26,22 +26,25 @@ app.get("/", (req, res) => {
   res.send("Hello, you shouldn't be here.");
 });
 
+//Get Venues
 app.get("/api/getvenues", (req, res) => {
   const sqlSelect = "SELECT venuename from venues;";
   db.query(sqlSelect, (err, result) => {
-    // console.log(result + err);
+    console.log(err);
     res.send(result);
   });
 });
 
+//Add venues (will be removed from production)
 app.post("/api/addvenue", (req, res) => {
-  const venueName = req.body.venueName;
+  const venueName = req.body.venuename;
   const sqlInsert = "INSERT INTO venues (venuename) VALUES (?);";
   db.query(sqlInsert, [venueName], (err, result) => {
     res.send(result + err);
   });
 });
 
+//Send qualm
 app.post("/api/sendqualm", (req, res) => {
   const feedback = req.body.feedback;
   const venue = req.body.venue;

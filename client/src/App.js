@@ -1,12 +1,11 @@
 //Qualms FRONTEND
 
 //Imports
-import React, {useState, useEffect} from 'react';
-import './App.css';
-import Axios from 'axios';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Axios from "axios";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 function App() {
   //State things
@@ -16,13 +15,7 @@ function App() {
     "one",
     "two",
     "three",
-  ]);
-
-  //Static dropdown list
-  //  const options = [
-  //   'one', 'two', 'three' //wants to be dynamic.
-  // ];
-  // setDropdownOptions = options;
+  ]); //default values
 
   //Main gameplay loop baby!
   const submitQualm = () => {
@@ -38,7 +31,7 @@ function App() {
   const addVenue = () => {
     // Axios post stuff to backend.
     Axios.post("http://localhost:3001/api/addvenue", {
-      venueName: venueTitle,
+      venuename: venueTitle,
     }).then(() => {
       alert("added venue successfully");
     });
@@ -47,33 +40,29 @@ function App() {
   //Dropdown selection happened
   const dropdownSelected = (selected) => {
     console.log(selected);
-    setVenueTitle(selected)
+    setVenueTitle(selected);
     //set venueTitle
   };
 
   //This should happen on page load...
-  // it should result in a nice json data lump we can use to set the dropdown state.
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/getvenues").then((response)=>{
-      console.log(response);// currently just mcdonalds. Need to make a function to add venue
-      let venueList = []
-      let repsonseindex = 0
-      const jsonString = JSON.stringify(response.data)
-      const obj = JSON.parse(jsonString)
-      const responseLength = response.data.jsonString
-      console.log("response length : " + responseLength)
-      for (let name in response.data) {
-        // const venueName = name
-        venueList = [...venueList, name.venuename]
-        repsonseindex += 1
+    Axios.get("http://localhost:3001/api/getvenues").then((response) => {
+      console.log(response); // 
+      let venueList = [];
+      for (let i = 0; i < response.data.length; i++) {
+        venueList = [...venueList, response.data[i].venuename];
       }
-      const manuallist = [response.data[0].venuename, response.data[1].venuename, response.data[2].venuename]
-      setDropdownOptions(manuallist)
-      // response.data.venueName
+      setDropdownOptions(venueList);
     });
   }, []);
 
-  const defaultOption = dropdownOptions[0]; //will this update when options does? I think no.
+  const defaultOption = dropdownOptions[0];
+
+  // function handleSubmitButton(e) {
+  //   e.preventDefault();
+  //   submitQualm(e.target.text)
+  //   setFeedbackTxt(); ///try to remove text in box on submit...
+  // }
 
   return (
     <div className="App">
