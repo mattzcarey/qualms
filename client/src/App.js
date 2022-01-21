@@ -10,11 +10,15 @@ import 'react-dropdown/style.css';
 
 function App() {
   //State things
-  const [venueTitle, setVenueTitle] = useState('');
-  const [feedbackTxt, setFeedbackTxt] = useState('');
-  const [dropdownOptions, setDropdownOptions] = useState(['one', 'two', 'three']);
+  const [venueTitle, setVenueTitle] = useState("");
+  const [feedbackTxt, setFeedbackTxt] = useState("");
+  const [dropdownOptions, setDropdownOptions] = useState([
+    "one",
+    "two",
+    "three",
+  ]);
 
-   //Static dropdown list
+  //Static dropdown list
   //  const options = [
   //   'one', 'two', 'three' //wants to be dynamic.
   // ];
@@ -22,31 +26,30 @@ function App() {
 
   //Main gameplay loop baby!
   const submitQualm = () => {
-    Axios.post('http://localhost:3001/api/sendqualm', {
+    Axios.post("http://localhost:3001/api/sendqualm", {
       feedback: feedbackTxt,
-      venue: venueTitle
-    }).then( () => {
-      alert('successful post')
-    })
-  }
+      venue: venueTitle,
+    }).then(() => {
+      alert("successful post");
+    });
+  };
 
   //Expanding the empire...
   const addVenue = () => {
     // Axios post stuff to backend.
-    Axios.post('http://localhost:3001/api/addvenue', {
-      venueName: venueTitle
-    }).then( () => {
-      alert('added venue successfully')
-    } )
-  }
+    Axios.post("http://localhost:3001/api/addvenue", {
+      venueName: venueTitle,
+    }).then(() => {
+      alert("added venue successfully");
+    });
+  };
 
   //Dropdown selection happened
   const dropdownSelected = (selected) => {
     console.log(selected);
     setVenueTitle(selected)
     //set venueTitle
-
-  }
+  };
 
   //This should happen on page load...
   // it should result in a nice json data lump we can use to set the dropdown state.
@@ -67,30 +70,40 @@ function App() {
       const manuallist = [response.data[0].venuename, response.data[1].venuename, response.data[2].venuename]
       setDropdownOptions(manuallist)
       // response.data.venueName
-    })
+    });
   }, []);
 
- 
-  
-  const defaultOption = dropdownOptions[0]; //will this update when options does? I think no. 
-
+  const defaultOption = dropdownOptions[0]; //will this update when options does? I think no.
 
   return (
     <div className="App">
       <h1>Qualms</h1>
-      <div className='form'>
-        <div className='row'>
+      <div className="form">
+        <div className="row">
           <label>Venue:</label>
           <button onClick={addVenue}>Add</button>
         </div>
-        <Dropdown options={dropdownOptions} onChange={dropdownSelected} value={defaultOption} placeholder="Select an option" />
-        <input type='text' name='venueTitle' onChange={(e)=> {
-          setVenueTitle(e.target.value);
-        }}/>
+        <Dropdown
+          options={dropdownOptions}
+          onChange={dropdownSelected}
+          value={defaultOption}
+          placeholder="Select an option"
+        />
+        <input
+          type="text"
+          name="venueTitle"
+          onChange={(e) => {
+            setVenueTitle(e.target.value);
+          }}
+        />
         <label>Anonymous Feedback:</label>
-        <input type="text" name="feedbackTxt" onChange={(e)=> {
-          setFeedbackTxt(e.target.value);
-        }}/>
+        <input
+          type="text"
+          name="feedbackTxt"
+          onChange={(e) => {
+            setFeedbackTxt(e.target.value);
+          }}
+        />
         <button onClick={submitQualm}>Submit</button>
       </div>
     </div>
