@@ -6,6 +6,8 @@ import "./App.css";
 import Axios from "axios";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Header from "./components/Header";
+import AddVenue from "./components/AddVenue";
 
 function App() {
   //State things
@@ -27,16 +29,6 @@ function App() {
     });
   };
 
-  //Expanding the empire...
-  const addVenue = () => {
-    // Axios post stuff to backend.
-    Axios.post("http://localhost:3001/api/addvenue", {
-      venuename: venueTitle,
-    }).then(() => {
-      alert("added venue successfully");
-    });
-  };
-
   //Dropdown selection happened
   const dropdownSelected = (selected) => {
     console.log(selected);
@@ -47,7 +39,7 @@ function App() {
   //This should happen on page load...
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getvenues").then((response) => {
-      console.log(response); // 
+      console.log(response); //
       let venueList = [];
       for (let i = 0; i < response.data.length; i++) {
         venueList = [...venueList, response.data[i].venuename];
@@ -58,42 +50,39 @@ function App() {
 
   const defaultOption = dropdownOptions[0];
 
-  // function handleSubmitButton(e) {
-  //   e.preventDefault();
-  //   submitQualm(e.target.text)
-  //   setFeedbackTxt(); ///try to remove text in box on submit...
-  // }
-
   return (
-    <div className="App">
-      <h1>Qualms</h1>
-      <div className="form">
-        <div className="row">
+    <div className="container">
+      <Header />
+      <br></br>
+      <div autoComplete="off" className="form-control">
+        <div className="venue-form">
+          <AddVenue />
           <label>Venue:</label>
-          <button onClick={addVenue}>Add</button>
+          <br></br>
+          <Dropdown
+            options={dropdownOptions}
+            onChange={dropdownSelected}
+            value={defaultOption}
+            placeholder="Select an option"
+          />
         </div>
-        <Dropdown
-          options={dropdownOptions}
-          onChange={dropdownSelected}
-          value={defaultOption}
-          placeholder="Select an option"
-        />
-        <input
-          type="text"
-          name="venueTitle"
-          onChange={(e) => {
-            setVenueTitle(e.target.value);
-          }}
-        />
-        <label>Anonymous Feedback:</label>
+        <br></br>
+        <label>Send us your qualms:</label>
         <input
           type="text"
           name="feedbackTxt"
+          className="form-control"
+          required
+          placeholder="Tell us your sudden sensation of misgiving or unease."
           onChange={(e) => {
             setFeedbackTxt(e.target.value);
           }}
         />
-        <button onClick={submitQualm}>Submit</button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <button className="btn" onClick={submitQualm}>
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );
