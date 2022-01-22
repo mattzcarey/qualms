@@ -6,13 +6,14 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
+const config = require("./config.js");
 
-//Secret database stuff, don't share -_-
+//Secret database stuff
 const db = mysql.createPool({
-  host: "ls-7747fafb702e9b0e95827d986e35040c609dd263.cztwonmsggwh.eu-west-2.rds.amazonaws.com",
-  user: "reactUser",
-  password: "RandomPass1234",
-  database: "qualms",
+  host: config.DB_HOST,
+  user: config.DB_USER,
+  password: config.DB_PASSWORD,
+  database: config.DB_NAME,
 });
 
 //Setup
@@ -56,6 +57,6 @@ app.post("/api/sendqualm", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("running on port 3001");
+app.listen(config.SERVER_PORT, () => {
+  console.log(`Server listening on port ${config.SERVER_PORT}`);
 });
