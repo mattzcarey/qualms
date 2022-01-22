@@ -31,9 +31,8 @@ function App() {
 
   //Dropdown selection happened
   const dropdownSelected = (selected) => {
-    console.log(selected);
-    setVenueTitle(selected);
-    //set venueTitle
+    //console.log(selected.value);
+    setVenueTitle(selected.value);
   };
 
   //This should happen on page load...
