@@ -9,7 +9,8 @@ import "react-dropdown/style.css";
 import Header from "./components/Header";
 //import AddVenue from "./components/AddVenue";
 
-function App() {
+// function App() {
+const App = () => {
   //State things
   const [venueTitle, setVenueTitle] = useState("");
   const [feedbackTxt, setFeedbackTxt] = useState("");
