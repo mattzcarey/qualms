@@ -7,7 +7,7 @@ import Axios from "axios";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Header from "./components/Header";
-import AddVenue from "./components/AddVenue";
+//import AddVenue from "./components/AddVenue";
 
 function App() {
   //State things
@@ -55,7 +55,6 @@ function App() {
       <br></br>
       <div autoComplete="off" className="form-control">
         <div className="venue-form">
-          <AddVenue />
           <label>Venue:</label>
           <br></br>
           <Dropdown
