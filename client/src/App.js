@@ -7,6 +7,7 @@ import Axios from "axios";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Header from "./components/Header";
+import { Link } from 'react-router-dom';
 //import AddVenue from "./components/AddVenue";
 
 // function App() {
@@ -82,6 +83,7 @@ const App = () => {
             Submit
           </button>
         </div>
+        <Link to='/about'>About</Link>
       </div>
     </div>
   );
