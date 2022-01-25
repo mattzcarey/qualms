@@ -2,6 +2,8 @@ import React, { useState, useEffect} from "react";
 import Axios from "axios";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 
 const QualmsForm = () => {
   //use states
@@ -66,6 +68,9 @@ const QualmsForm = () => {
           setFeedbackTxt(e.target.value);
         }}
       />
+      <Box width={300}>
+        <Slider defaultValue={4} min={1} max={5} aria-label="Default" valueLabelDisplay="auto" />
+      </Box>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <button className="btn" onClick={submitQualm}>
           Submit
