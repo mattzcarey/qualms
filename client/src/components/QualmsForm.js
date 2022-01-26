@@ -78,13 +78,7 @@ const QualmsForm = () => {
         }}
       />
       <Box width={300}>
-        <Slider
-          defaultValue={4}
-          min={1}
-          max={5}
-          aria-label="Default"
-          valueLabelDisplay="auto"
-        />
+        <Slider defaultValue={4} min={1} max={100} aria-label="Default" valueLabelDisplay="off" />
       </Box>
       <br />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
