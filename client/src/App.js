@@ -7,7 +7,7 @@ import "react-dropdown/style.css";
 import Header from "./components/Header";
 import QualmsForm from "./components/QualmsForm";
 import { Link } from 'react-router-dom';
-
+import Footer from "./components/Footer";
 
 //import AddVenue from "./components/AddVenue";
 
@@ -19,7 +19,8 @@ const App = () => {
       <Header />
       <br></br>
       <QualmsForm />
-      <Link to='/about'>About</Link>
+      <br></br>
+      <Footer />
     </div>
   );
 }
