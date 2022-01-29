@@ -1,12 +1,16 @@
-FROM node:17
+FROM node:17-buster
 
-RUN mkdir -p /app
-WORKDIR /app
+WORKDIR /server
 
-COPY package.json /app
+#install dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
 
-COPY . /app
+COPY ./ ./
 
 RUN npm install
 
-CMD ["npm", "start"]
+EXPOSE 3001
+
+CMD ["npm", "run", "devStart"]
