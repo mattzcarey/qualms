@@ -44,7 +44,11 @@ const QualmsForm = () => {
     const reToken = await reRef.current.executeAsync();
     reRef.current.reset();
 
+<<<<<<< HEAD
     await Axios.post("https://localhost:3001/api/sendqualm", {
+=======
+    Axios.post("http://localhost:3001/api/sendqualm", {
+>>>>>>> 1bdd46610d0275071c143c5f0da521d1a2b304a8
       feedback: feedbackTxt,
       venue: venueTitle,
       token: reToken,

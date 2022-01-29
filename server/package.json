@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "devStart": "export NODE_ENV=development&& nodemon index.js",
+    "devStartWin": "set NODE_ENV=development&& nodemon index.js",
     "prodStart": "export NODE_ENV=production&& node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +14,7 @@
   "author": "Matthew Carey & Jack Lippold ",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.25.0",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "dotenv": "^14.2.0",
