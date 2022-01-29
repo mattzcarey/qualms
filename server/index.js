@@ -9,6 +9,7 @@ const mysql = require("mysql");
 const config = require("./config.js");
 const auth = require("./middleware/auth");
 const Axios = require("axios");
+const { response } = require("express");
 
 //Secret database stuff
 const db = mysql.createPool({
@@ -71,6 +72,7 @@ app.post("/api/sendqualm", async (req, res) => {
   const human = await validateHuman(req.body.token);
 
   if (!human) {
+    console.log('ReCaptcha calls bot.')
     res.status(400);
     res.json({ errors: ['Potential bot spotted'] });
     return;
@@ -78,10 +80,11 @@ app.post("/api/sendqualm", async (req, res) => {
 
   const feedback = req.body.feedback;
   const venue = req.body.venue;
+  const score = req.body.score;
   console.log("Request to insert: " + feedback + " about " + venue);
   const sqlInsert =
-    "INSERT INTO feedbackTable (qualmtext, venues_venuename) VALUES (?, ?);";
-  db.query(sqlInsert, [feedback, venue], (err, result) => {
+    "INSERT INTO feedbackTable (qualmtext, venues_venuename, score) VALUES (?, ?, ?);";
+  db.query(sqlInsert, [feedback, venue, score], (err, result) => {
     console.log(result + ":" + err);
   });
 });
@@ -93,7 +96,6 @@ async function validateHuman(reToken) {
   );
   //const data = response.json();
   isHuman = response.data.success
-
   return isHuman
   //return false
 }
