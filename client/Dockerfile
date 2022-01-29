@@ -1,12 +1,20 @@
-FROM node:17-alpine
+#pull base image
+FROM node:17-buster
 
-RUN mkdir -p /app
+#create and set working directory
 WORKDIR /app
 
-COPY package.json /app
-COPY yarn.lock /app
-COPY . /app
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-RUN yarn install
+#install dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
 
-CMD ["yarn", "start"]
+#add app
+COPY ./ ./
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
