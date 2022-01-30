@@ -3,8 +3,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
-    Link
+    Route
   } from 'react-router-dom';
 
 import App from './App'

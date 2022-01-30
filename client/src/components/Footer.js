@@ -1,7 +1,6 @@
 import "..//App.css";
 import { Link } from "react-router-dom";
 import InfoIcon from '@mui/icons-material/Info';
-import { Icon } from "@mui/material";
 
 const Footer = () => {
     return (

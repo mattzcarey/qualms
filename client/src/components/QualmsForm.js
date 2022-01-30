@@ -85,7 +85,9 @@ const QualmsForm = () => {
 
   //Get request for venues on page load
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/getvenues").then((response) => {
+    Axios.get(
+      `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/getvenues`
+    ).then((response) => {
       console.log(response); //
       let venueList = [];
       for (let i = 0; i < response.data.length; i++) {
@@ -108,14 +110,17 @@ const QualmsForm = () => {
     const reToken = await reRef.current.executeAsync();
     reRef.current.reset();
 
-    await Axios.post("http://localhost:3001/api/sendqualm", {
-      feedback: feedbackTxt,
-      venue: venueTitle,
-      score: qualmScore,
-      token: reToken,
-    }).then(() => {
+    await Axios.post(
+      `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/sendqualm`,
+      {
+        feedback: feedbackTxt,
+        venue: venueTitle,
+        score: qualmScore,
+        token: reToken,
+      }
+    ).then(() => {
       console.log("Qualm Posted Successfully.");
-      navigate('/success');
+      navigate("/success");
       // alert("Successfully reported Qualm"); // <- This alert felt unprofessional so I turned it off, it could still be a thing tho...
     });
   };

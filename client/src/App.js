@@ -6,7 +6,7 @@ import "./App.css";
 import "react-dropdown/style.css";
 import Header from "./components/Header";
 import QualmsForm from "./components/QualmsForm";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import Footer from "./components/Footer";
 
 //import AddVenue from "./components/AddVenue";
