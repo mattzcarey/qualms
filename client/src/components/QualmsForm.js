@@ -10,27 +10,42 @@ import { useNavigate } from 'react-router-dom';
 
 // Note for Jack: Shortcut for prettier is shift + option + f
 
+//regEx for form validation
+const regexp = new RegExp(/^[a-zA-Z0-9.,:;() ]+$/);
+
+function invalidateQualm(qualm) {
+  if (!regexp.test(qualm) && qualm.length !== 0){
+    return true
+  } else {
+    return false
+  }
+}
+
 const QualmTextBox = memo(({ onChange, value }) => {
   const handleChange = (e) => {
-    onChange(e.target.value)
+    onChange(e.target.value);
   };
   return (
     <TextField
-        id="outlined-multiline-static"
-        label="Qualm"
-        multiline
-        rows={4}
-        value={value}
-        onChange={handleChange}
-        sx={{ width: 300 }}
-        placeholder="Tell us your sudden sensation of misgiving or unease."
-      />
-  )
+      error={invalidateQualm(value)}
+      helperText={
+        invalidateQualm(value) ? "Invalid input" : ""
+      }
+      id="outlined-multiline-static"
+      label="Qualm"
+      multiline
+      rows={4}
+      value={value}
+      onChange={handleChange}
+      sx={{ width: 300 }}
+      placeholder="Tell us your sudden sensation of misgiving or unease."
+    />
+  );
 });
 
 const VenuesBox = memo(({ onChange, options, value }) => {
   const handleChange = (e, newValue) => {
-    onChange(newValue)
+    onChange(newValue);
   };
   return (
     <Autocomplete
@@ -68,11 +83,6 @@ const QualmsForm = () => {
   //ref for captcha
   const reRef = useRef(null);
 
-  //Dropdown selection
-  const dropdownSelected = (selected) => {
-    setVenueTitle(selected.value);
-  };
-
   //Get request for venues on page load
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getvenues").then((response) => {
@@ -86,12 +96,13 @@ const QualmsForm = () => {
     });
   }, []);
 
-  const defaultOption = dropdownOptions[0];
-
-  
   //Main gameplay loop baby!
   const submitQualm = async () => {
     ///create token and reset recaptcha
+    if (invalidateQualm(feedbackTxt)) {
+      alert('Qualm not submitted, invalid characters')
+      return
+    }
 
     // setFeedbackTxt(feedbackTxt);
     const reToken = await reRef.current.executeAsync();
@@ -118,12 +129,15 @@ const QualmsForm = () => {
       <div className="venue-form">
         {/* <label>Venue:</label> */}
         <br></br>
-        <VenuesBox onChange={setVenueTitle} options={dropdownOptions}
-      value={venueTitle}/>
+        <VenuesBox
+          onChange={setVenueTitle}
+          options={dropdownOptions}
+          value={venueTitle}
+        />
       </div>
       <br></br>
       {/* <label>Send us your qualms:</label> */}
-      <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt}/>
+      <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
       <Box width={300}>
         <Slider
           defaultValue={50}
