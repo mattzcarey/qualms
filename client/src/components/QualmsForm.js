@@ -6,6 +6,7 @@ import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from 'react-router-dom';
 
 // Note for Jack: Shortcut for prettier is shift + option + f
 
@@ -36,6 +37,7 @@ const QualmTextBox = memo(({ onChange, value }) => {
       rows={4}
       value={value}
       onChange={handleChange}
+      sx={{ width: 300 }}
       placeholder="Tell us your sudden sensation of misgiving or unease."
     />
   );
@@ -75,6 +77,9 @@ const QualmsForm = () => {
   ]); //default values
   const [qualmScore, setQualmScore] = useState(50);
 
+  //initalise ability to navigate
+  const navigate = useNavigate();
+
   //ref for captcha
   const reRef = useRef(null);
 
@@ -109,10 +114,9 @@ const QualmsForm = () => {
       score: qualmScore,
       token: reToken,
     }).then(() => {
-      // Appears not to be working...
-      console.log("Posted Qualm");
-      alert("Successfully reported Qualm");
-      // Future versions of this should redirect to a success page.
+      console.log("Qualm Posted Successfully.");
+      navigate('/success');
+      // alert("Successfully reported Qualm"); // <- This alert felt unprofessional so I turned it off, it could still be a thing tho...
     });
   };
 

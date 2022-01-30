@@ -87,6 +87,7 @@ app.post("/api/sendqualm", async (req, res) => {
   db.query(sqlInsert, [feedback, venue, score], (err, result) => {
     console.log(result + ":" + err);
   });
+  res.send("Success")
 });
 
 async function validateHuman(reToken) {
