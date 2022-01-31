@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 // Note for Jack: Shortcut for prettier is shift + option + f
 
 //regEx for form validation
-const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n]+$/);
+const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
 function invalidateQualm(qualm) {
   if (!regexp.test(qualm) && qualm.length !== 0){
