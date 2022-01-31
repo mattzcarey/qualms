@@ -28,9 +28,7 @@ const QualmTextBox = memo(({ onChange, value }) => {
   return (
     <TextField
       error={invalidateQualm(value)}
-      helperText={
-        invalidateQualm(value) ? "Invalid input" : ""
-      }
+      helperText={invalidateQualm(value) ? "Invalid input" : ""}
       id="outlined-multiline-static"
       label="Qualm"
       multiline
@@ -38,7 +36,7 @@ const QualmTextBox = memo(({ onChange, value }) => {
       value={value}
       onChange={handleChange}
       sx={{ width: 300 }}
-      placeholder="Tell us your sudden sensation of misgiving or unease."
+      placeholder="qualm / kwä(l)m; kwô(l)m/ • n. an uneasy feeling of doubt, worry, or fear, esp. about one's own conduct; a misgiving."
     />
   );
 });
@@ -72,8 +70,8 @@ const QualmsForm = () => {
   const [feedbackTxt, setFeedbackTxt] = useState("");
   const [dropdownOptions, setDropdownOptions] = useState([
     "Loading...",
-    "two",
-    "three",
+    "Loading...",
+    "The server is down.",
   ]); //default values
   const [qualmScore, setQualmScore] = useState(50);
 
