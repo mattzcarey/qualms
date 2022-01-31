@@ -23,8 +23,79 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: cente;
+  margin-bottom: 20px;
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.sub-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 2px;
+  font-size: 10px;
+}
+
+.sub-containerA {
+  justify-content: flex-start;
+  max-width: auto;
+  margin-right: 5px;
+  overflow: auto;
+  min-height: auto;
+  border: 1px solid steelblue;
+  padding: 15px;
+  background-color: rgb(255, 223, 162);
+  border-radius: 1px;
+}
+.sub-containerB {
+  justify-content: flex-end;
+  max-width: auto;
+  margin-left: 5px;
+  overflow: auto;
+  min-height: 150px;
+  border: 1px solid steelblue;
+  padding: 15px;
+  background-color: rgb(197, 234, 255);
+  border-radius: 1px;
+}
+
+.sub-containerC {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: auto;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: auto;
+  border: 1px solid steelblue;
+  padding: 5px;
+  background-color: rgb(173, 255, 162);
+  border-radius: 1px;
+}
+.sub-containerD {
+  justify-content: center;
+  max-width: auto;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: auto;
+}
+
+.about-container {
+
+  justify-content: space-between;
+  max-width: 700px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
 }
 
 .footer {
