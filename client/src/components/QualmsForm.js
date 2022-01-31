@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef, memo } from "react";
 import Axios from "axios";
 import "react-dropdown/style.css";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -130,8 +133,6 @@ const QualmsForm = () => {
     A possible workaround is to remove the id to have the component generate a random one.
     */}
       <div className="venue-form">
-        {/* <label>Venue:</label> */}
-        <br></br>
         <VenuesBox
           onChange={setVenueTitle}
           options={dropdownOptions}
@@ -139,9 +140,13 @@ const QualmsForm = () => {
         />
       </div>
       <br></br>
-      {/* <label>Send us your qualms:</label> */}
+      <div>
       <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
+      </div>
+      <br></br>
       <Box width={300}>
+        <Stack spacing={2} direction="row" alignItems="center">
+        <SentimentVeryDissatisfiedIcon />
         <Slider
           defaultValue={50}
           min={1}
@@ -152,6 +157,8 @@ const QualmsForm = () => {
             setQualmScore(e.target.value);
           }}
         />
+        <SentimentSatisfiedAltIcon />
+        </Stack>
       </Box>
       <br />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -164,7 +171,7 @@ const QualmsForm = () => {
         size="invisible"
         ref={reRef}
       />
-    </div>
+      </div>
   );
 };
 
