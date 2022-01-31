@@ -2,22 +2,34 @@ import React, { useState, useEffect, useRef, memo } from "react";
 import Axios from "axios";
 import "react-dropdown/style.css";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useNavigate } from 'react-router-dom';
-
-// Note for Jack: Shortcut for prettier is shift + option + f
+import AlertDialogSlide from "./ALertDialogSlide";
+import Button from "@mui/material/Button";
 
 //regEx for form validation
-const regexp = new RegExp(/^[a-zA-Z0-9.,:;() ]+$/);
+const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
-function invalidateQualm(qualm) {
-  if (!regexp.test(qualm) && qualm.length !== 0){
-    return true
+
+//validation
+function invalidateQualm(qualm, venue) {
+  if (!regexp.test(qualm) || qualm.length === 0) {
+    return true;
   } else {
-    return false
+    return false;
+  } 
+}
+
+function invalidateVenue(venue) {
+  if (!venue || venue.length === 0 ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -27,18 +39,17 @@ const QualmTextBox = memo(({ onChange, value }) => {
   };
   return (
     <TextField
-      error={invalidateQualm(value)}
+      error={invalidateQualm(value) && value.length !== 0}
       helperText={
-        invalidateQualm(value) ? "Invalid input" : ""
+        invalidateQualm(value) && value.length !== 0 ? "Invalid input" : ""
       }
-      id="outlined-multiline-static"
       label="Qualm"
       multiline
       rows={4}
       value={value}
       onChange={handleChange}
       sx={{ width: 300 }}
-      placeholder="Tell us your sudden sensation of misgiving or unease."
+      placeholder="qualm / kwä(l)m; kwô(l)m/ • n. an uneasy feeling of doubt, worry, or fear, esp. about one's own conduct; a misgiving."
     />
   );
 });
@@ -50,9 +61,8 @@ const VenuesBox = memo(({ onChange, options, value }) => {
   return (
     <Autocomplete
       disablePortal
-      id="combo-box-demo"
+      placeholder="Select Venue"
       options={options}
-      value={value}
       onChange={handleChange}
       sx={{ width: 300 }}
       renderInput={(params) => (
@@ -71,14 +81,10 @@ const QualmsForm = () => {
   const [venueTitle, setVenueTitle] = useState("");
   const [feedbackTxt, setFeedbackTxt] = useState("");
   const [dropdownOptions, setDropdownOptions] = useState([
-    "Loading...",
-    "two",
-    "three",
+    "Loading..",
   ]); //default values
   const [qualmScore, setQualmScore] = useState(50);
-
-  //initalise ability to navigate
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   //ref for captcha
   const reRef = useRef(null);
@@ -93,7 +99,6 @@ const QualmsForm = () => {
       for (let i = 0; i < response.data.length; i++) {
         venueList = [...venueList, response.data[i].venuename];
       }
-      setVenueTitle(venueList[0]);
       setDropdownOptions(venueList);
     });
   }, []);
@@ -101,14 +106,20 @@ const QualmsForm = () => {
   //Main gameplay loop baby!
   const submitQualm = async () => {
     ///create token and reset recaptcha
-    if (invalidateQualm(feedbackTxt)) {
-      alert('Qualm not submitted, invalid characters')
-      return
+    if (invalidateQualm(feedbackTxt) || invalidateVenue(venueTitle)) {
+      alert("Qualm not submitted, invalid characters");
+      return;
     }
 
     // setFeedbackTxt(feedbackTxt);
     const reToken = await reRef.current.executeAsync();
     reRef.current.reset();
+
+    //opens dialog success popup
+    setOpen(true);
+
+    //set feedbackText state to empty
+    setFeedbackTxt("");
 
     await Axios.post(
       `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/sendqualm`,
@@ -120,8 +131,7 @@ const QualmsForm = () => {
       }
     ).then(() => {
       console.log("Qualm Posted Successfully.");
-      navigate("/success");
-      // alert("Successfully reported Qualm"); // <- This alert felt unprofessional so I turned it off, it could still be a thing tho...
+      //add error catching here
     });
   };
 
@@ -132,8 +142,6 @@ const QualmsForm = () => {
     A possible workaround is to remove the id to have the component generate a random one.
     */}
       <div className="venue-form">
-        {/* <label>Venue:</label> */}
-        <br></br>
         <VenuesBox
           onChange={setVenueTitle}
           options={dropdownOptions}
@@ -141,31 +149,38 @@ const QualmsForm = () => {
         />
       </div>
       <br></br>
-      {/* <label>Send us your qualms:</label> */}
-      <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
+      <div>
+        <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
+      </div>
+      <br></br>
       <Box width={300}>
-        <Slider
-          defaultValue={50}
-          min={1}
-          max={100}
-          aria-label="Default"
-          valueLabelDisplay="off"
-          onChange={(e) => {
-            setQualmScore(e.target.value);
-          }}
-        />
+        <Stack spacing={2} direction="row" alignItems="center">
+          <SentimentVeryDissatisfiedIcon />
+          <Slider
+            defaultValue={50}
+            min={1}
+            max={100}
+            aria-label="Default"
+            valueLabelDisplay="off"
+            onChange={(e) => {
+              setQualmScore(e.target.value);
+            }}
+          />
+          <SentimentSatisfiedAltIcon />
+        </Stack>
       </Box>
       <br />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button className="btn" onClick={submitQualm}>
+        <Button variant="outlined" onClick={submitQualm}>
           Submit
-        </button>
+        </Button>
       </div>
       <ReCAPTCHA
         sitekey="6Ld8izweAAAAAC_66W4pLRd11hfhg3tNKefI4vsd"
         size="invisible"
         ref={reRef}
       />
+      <AlertDialogSlide open={open} setOpen={setOpen} />
     </div>
   );
 };
