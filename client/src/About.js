@@ -25,36 +25,38 @@ function About() {
               <h2>Executive Summary:</h2>
             </div>
             <h3 style={({ textAlign: "center" }, { fontSize: "10px" })}>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-              eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-              est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-              velit, sed quia non numquam eius modi tempora incidunt ut labore
-              et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
-              veniam, quis nostrum exercitationem ullam corporis suscipit
-              laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-              vel eum iure reprehenderit qui in ea voluptate velit esse quam
-              nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-              voluptas nulla pariatur?
-            </h3>
-          </div>
-          <div className="sub-containerB">
-            <div className="sub-header">
-              <h2>Startup Value Proposition:</h2>
-            </div>
-            <h3 style={({ textAlign: "center" }, { fontSize: "10px" })}>
-              Qualms is a service for businesses to collect meaningful feedback
-              and insights on their customer experience from their most loyal
-              patrons. It allows customers to submit anonymous feedback to the
-              platform by way of a QR code which can be printed on a menu or
-              displayed at the venue. The feedback is filtered by Qualms to
-              remove spam and extract the key messages. The business pays a
-              subscription to periodically receive a breakdown of the insights.
-              Qualms gives the owner/manager the opportunity to change before a
-              permanent negative comment is left in the public domain forever.
+              Qualms is an idea thought up to solve a very real life problem.
+              With the pandemic and the global move to online services, real
+              customer feedback in hospitality businesses has all but been left
+              behind in the influx of booking apps, public rants and
+              disappearance of feedback cards and visitors books.
+              <br />
+              Qualms will enable customers to give constructive anonymous
+              feedback, meaning businesses receive specific, actionable
+              criticisms and observations. Thereby catching criticisms before
+              they enter the public domain and avoiding reputation damage.
+              <br />
+              With the growing acceptance of QR codes, there is now a moment in
+              time to gain a first movers advantage and create this simple
+              feedback service, which venues can use to leverage their
+              understanding of their customers.
+              <br />
+              Qualms is built as a web app. There is no application to download
+              and no sign up for the user. Qualms does not store any personal or
+              identifying information about its users. All you need is the QR
+              code to take you to the site. This gives it the best perceived
+              ease of use compared to any of its competitors.
+              <br />
+              For the business, Qualms provides filtering of the raw data to
+              remove spam. It extracts the key messages and allows the business
+              to understand what they want from the venue. Qualms will use
+              advanced data science to plot long term trends in feedback and
+              deliver these insights to the venue. In the future Qualms will use
+              these insights and the data collected to launch a bespoke
+              consultancy business for the hospitality industry.
+              <br />
+              Qualms aims to achieve top-of-mind awareness for anonymous
+              hospitality feedback within its first 5 years of trading.
             </h3>
           </div>
         </div>
@@ -66,11 +68,12 @@ function About() {
             to="/Qualms-forcast-summary.xlsx"
             target="_blank"
             download
-            style={{justifyContent: "right"}}
+            style={{ justifyContent: "right" }}
           >
             <Button variant="contained">Download</Button>
           </Link>
         </div>
+        <h2 className="footer">contact@qualms.uk</h2>
       </div>
     </div>
   );
