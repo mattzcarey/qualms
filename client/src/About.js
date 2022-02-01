@@ -1,6 +1,6 @@
-import { React, useEffect, useMemo } from "react";
+import { React, useEffect } from "react";
 import "./App.css";
-import Logo from "./Images/img_554141.png";
+import Logo from "./Images/qualmslogo.png";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
