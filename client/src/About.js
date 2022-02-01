@@ -3,6 +3,7 @@ import "./App.css";
 import Logo from "./Images/img_554141.png";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import TwitterLogo from "./Images/Twitter.png";
 
 function About() {
   useEffect(() => {
@@ -72,6 +73,11 @@ function About() {
           >
             <Button variant="contained">Download</Button>
           </Link>
+        </div>
+        <div>
+          <a href={"https://twitter.com/MakingQualms"}>
+            <img src={TwitterLogo} className="twitterlogo" alt="icon" />
+          </a>
         </div>
         <h2 className="footer">contact@qualms.uk</h2>
       </div>
