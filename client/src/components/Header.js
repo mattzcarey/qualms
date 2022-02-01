@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import Logo from "..//Images/img_554141.png";
+// import Logo from "..//Images/img_554141.png";
+import Logo from "..//Images/qualmslogo.png";
 import "..//App.css";
 
 const Header = ({ title }) => {
