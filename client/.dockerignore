@@ -6,6 +6,8 @@ build
 
 .dockerignore
 
+.env
+
 **/.git
 
 **/.DS_Store
