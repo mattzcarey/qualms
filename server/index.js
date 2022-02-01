@@ -32,7 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use("/api/auth..etc", authRouter)
 
 //Get Methods - requests that the client make to us.
-
 app.get("/", (req, res) => {
   res.send("Hello, you shouldn't be here.");
 });
