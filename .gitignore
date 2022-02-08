@@ -5,7 +5,8 @@
 /server/build
 
 #.env
-development.env
+server/development.env
+server/production.env
 client/.env
 
 # dependencies
