@@ -92,7 +92,7 @@ const QualmsForm = () => {
   //Get request for venues on page load
   useEffect(() => {
     Axios.get(
-      `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/getvenues`
+      `http://${process.env.REACT_APP_API_HOST}/api/getvenues`
     ).then((response) => {
       console.log(response); //
       let venueList = [];
@@ -123,7 +123,7 @@ const QualmsForm = () => {
     setFeedbackTxt("");
 
     await Axios.post(
-      `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/sendqualm`,
+      `http://${process.env.REACT_APP_API_HOST}/api/sendqualm`,
       {
         feedback: feedbackTxt,
         venue: venueTitle,
