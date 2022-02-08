@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 });
 
 //Get Venues
-app.get("/api/getvenues", (req, res) => {
+app.get("/getvenues", (req, res) => {
   const sqlSelect = "SELECT venuename from venues;";
   db.query(sqlSelect, (err, result) => {
     res.status(200).send(result);
@@ -45,7 +45,7 @@ app.get("/api/getvenues", (req, res) => {
 });
 
 //Add venues (need api key)
-app.post("/api/addvenue", (req, res) => {
+app.post("/addvenue", (req, res) => {
   const venueName = req.body.venuename;
   const sqlInsert = "INSERT INTO venues (venuename) VALUES (?);";
 
@@ -66,7 +66,7 @@ app.post("/api/addvenue", (req, res) => {
 });
 
 //Send qualm
-app.post("/api/sendqualm", async (req, res) => {
+app.post("/sendqualm", async (req, res) => {
 
   const human = await validateHuman(req.body.token);
 
