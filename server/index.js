@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 
 //Get Venues
 app.get("/getvenues", (req, res) => {
-  const sqlSelect = "SELECT venuename from venues;";
+  const sqlSelect = "SELECT venuename from venues ORDER BY venuename;";
   db.query(sqlSelect, (err, result) => {
     res.status(200).send(result);
   });
