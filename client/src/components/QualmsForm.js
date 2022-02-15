@@ -16,9 +16,8 @@ import QualmTextBox from "./QualmsTextBox";
 //regEx for form validation
 const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
-
 //validation
-function invalidateQualm(qualm, venue) {
+function invalidateQualm(qualm) {
   if (!regexp.test(qualm) || qualm.length === 0) {
     return true;
   } else {
@@ -83,7 +82,10 @@ const QualmsForm = () => {
     formData.append("file", file);
     formData.append("fileName", fileName);
     try {
-      const res = await Axios.post(`https://qualms.uk/api/uploadphoto`, formData);
+      const res = await Axios.post(
+        `https://qualms.uk/api/uploadphoto`,
+        formData
+      );
       console.log(res);
     } catch (ex) {
       console.log(ex);
@@ -116,7 +118,7 @@ const QualmsForm = () => {
       </div>
       <br></br>
       <div>
-        <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
+        <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} invalidateQualm={invalidateQualm} />
       </div>
       <br></br>
       <PhotoUpload setFileName={setFileName} setFile={setFile} />

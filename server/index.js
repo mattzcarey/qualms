@@ -9,6 +9,7 @@ const mysql = require("mysql");
 const config = require("./config.js");
 const auth = require("./middleware/auth");
 const Axios = require("axios");
+const multer = require("multer")
 
 //Secret database stuff
 const db = mysql.createPool({
@@ -16,14 +17,6 @@ const db = mysql.createPool({
   user: config.DB_USER,
   password: config.DB_PASSWORD,
   database: config.DB_NAME,
-});
-
-//connecting to db
-db.connect(function (err) {
-  if (err) {
-    return console.error("error: " + err.message);
-  }
-  console.log("Connected to the MySQL server.");
 });
 
 //! Use of Multer
@@ -80,7 +73,7 @@ app.post("/addvenue", (req, res) => {
 });
 
 //upload photo
-app.post("/uploadphoto", upload.single("image"), (req, res) => {
+app.post("/uploadphoto", upload.single("image"), async (req, res) => {
   if (!req.file) {
     console.log("No file upload");
   } else {
