@@ -49,7 +49,7 @@ const QualmTextBox = memo(({ onChange, value }) => {
       value={value}
       onChange={handleChange}
       sx={{ width: 300 }}
-      placeholder="qualm / kwä(l)m; kwô(l)m/ • n. an uneasy feeling of doubt, worry, or fear, esp. about one's own conduct; a misgiving."
+      placeholder="qualm / kwä(l)m; kwô(l)m/ • n. a general uneasy feeling of doubt, or worry. Could it be that something could be done better?"
     />
   );
 });
