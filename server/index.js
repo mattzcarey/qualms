@@ -9,7 +9,6 @@ const mysql = require("mysql");
 const config = require("./config.js");
 const auth = require("./middleware/auth");
 const Axios = require("axios");
-const { response } = require("express");
 
 //Secret database stuff
 const db = mysql.createPool({
@@ -19,17 +18,34 @@ const db = mysql.createPool({
   database: config.DB_NAME,
 });
 
+//connecting to db
+db.connect(function (err) {
+  if (err) {
+    return console.error("error: " + err.message);
+  }
+  console.log("Connected to the MySQL server.");
+});
+
+//! Use of Multer
+const storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    callBack(null, "./public/images/"); // './public/images/' directory name where save the file
+  },
+  filename: (req, file, callBack) => {
+    callBack(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({
+  storage: storage,
+});
+
 //Setup Middleware
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//Import routes
-//To do
-//const authRouter = require("./routes/auth")
-
-//Setup routes
-//app.use("/api/auth..etc", authRouter)
 
 //Get Methods - requests that the client make to us.
 app.get("/", (req, res) => {
@@ -60,20 +76,43 @@ app.post("/addvenue", (req, res) => {
     db.query(sqlInsert, [venueName], (err, result) => {
       res.send(result + err);
     });
-  } else (
-    console.log("token bad")
-  )
+  } else console.log("token bad");
+});
+
+//upload photo
+app.post("/uploadphoto", upload.single("image"), (req, res) => {
+  if (!req.file) {
+    console.log("No file upload");
+  } else {
+
+    const human = await validateHuman(req.body.token);
+    
+    if (!human) {
+      console.log("ReCaptcha calls bot.");
+      res.status(400);
+      res.json({ errors: ["Potential bot spotted"] });
+      return;
+    }
+
+    console.log(req.file.filename);
+    let imgsrc = "https://qualms.uk/images/" + req.file.filename;
+    let insertData = "INSERT INTO feedbackTable (file_src) VALUES(?)";
+
+    db.query(insertData, [imgsrc], (err, result) => {
+        if (err) throw err
+        console.log("file uploaded")
+    })
+  }
 });
 
 //Send qualm
 app.post("/sendqualm", async (req, res) => {
-
   const human = await validateHuman(req.body.token);
 
   if (!human) {
-    console.log('ReCaptcha calls bot.')
+    console.log("ReCaptcha calls bot.");
     res.status(400);
-    res.json({ errors: ['Potential bot spotted'] });
+    res.json({ errors: ["Potential bot spotted"] });
     return;
   }
 
@@ -86,7 +125,7 @@ app.post("/sendqualm", async (req, res) => {
   db.query(sqlInsert, [feedback, venue, score], (err, result) => {
     console.log(result + ":" + err);
   });
-  res.send("Success")
+  res.send("Success");
 });
 
 async function validateHuman(reToken) {
@@ -95,8 +134,8 @@ async function validateHuman(reToken) {
     `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${reToken}`
   );
   //const data = response.json();
-  isHuman = response.data.success
-  return isHuman
+  isHuman = response.data.success;
+  return isHuman;
   //return false
 }
 
