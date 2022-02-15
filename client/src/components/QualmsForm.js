@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Axios from "axios";
 import "react-dropdown/style.css";
 import Box from "@mui/material/Box";
@@ -6,11 +6,12 @@ import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import ReCAPTCHA from "react-google-recaptcha";
 import AlertDialogSlide from "./ALertDialogSlide";
 import Button from "@mui/material/Button";
+import PhotoUpload from "./PhotoUpload";
+import VenuesBox from "./VenuesBox";
+import QualmTextBox from "./QualmsTextBox";
 
 //regEx for form validation
 const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
@@ -32,49 +33,6 @@ function invalidateVenue(venue) {
     return false;
   }
 }
-
-const QualmTextBox = memo(({ onChange, value }) => {
-  const handleChange = (e) => {
-    onChange(e.target.value);
-  };
-  return (
-    <TextField
-      error={invalidateQualm(value) && value.length !== 0}
-      helperText={
-        invalidateQualm(value) && value.length !== 0 ? "Invalid input" : ""
-      }
-      label="Qualm"
-      multiline
-      rows={4}
-      value={value}
-      onChange={handleChange}
-      sx={{ width: 300 }}
-      placeholder="qualm / kwä(l)m; kwô(l)m/ • n. an uneasy feeling of doubt, worry, or fear, esp. about one's own conduct; a misgiving."
-    />
-  );
-});
-
-const VenuesBox = memo(({ onChange, options, value }) => {
-  const handleChange = (e, newValue) => {
-    onChange(newValue);
-  };
-  return (
-    <Autocomplete
-      disablePortal
-      placeholder="Select Venue"
-      options={options}
-      onChange={handleChange}
-      sx={{ width: 300 }}
-      renderInput={(params) => (
-        <TextField
-          InputLabelProps={{ shrink: true }}
-          {...params}
-          label="Venue"
-        />
-      )}
-    />
-  );
-});
 
 const QualmsForm = () => {
   //use states
@@ -125,13 +83,13 @@ const QualmsForm = () => {
     formData.append("file", file);
     formData.append("fileName", fileName);
     try {
-      const res = await Axios.post("https://qualms.uk/api/uploadphoto", formData);
+      const res = await Axios.post(`https://qualms.uk/api/uploadphoto`, formData);
       console.log(res);
     } catch (ex) {
       console.log(ex);
     }
 
-    //submitqualm
+    //submit qualm
     await Axios.post(`https://qualms.uk/api/sendqualm`, {
       feedback: feedbackTxt,
       venue: venueTitle,
