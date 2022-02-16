@@ -15,18 +15,17 @@ import Button from "@mui/material/Button";
 //regEx for form validation
 const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
-
 //validation
 function invalidateQualm(qualm, venue) {
   if (!regexp.test(qualm) || qualm.length === 0) {
     return true;
   } else {
     return false;
-  } 
+  }
 }
 
 function invalidateVenue(venue) {
-  if (!venue || venue.length === 0 ) {
+  if (!venue || venue.length === 0) {
     return true;
   } else {
     return false;
@@ -80,9 +79,7 @@ const QualmsForm = () => {
   //use states
   const [venueTitle, setVenueTitle] = useState("");
   const [feedbackTxt, setFeedbackTxt] = useState("");
-  const [dropdownOptions, setDropdownOptions] = useState([
-    "Loading..",
-  ]); //default values
+  const [dropdownOptions, setDropdownOptions] = useState(["Loading.."]); //default values
   const [qualmScore, setQualmScore] = useState(50);
   const [open, setOpen] = useState(false);
 
@@ -91,9 +88,7 @@ const QualmsForm = () => {
 
   //Get request for venues on page load
   useEffect(() => {
-    Axios.get(
-      `https://qualms.uk/api/getvenues`
-    ).then((response) => {
+    Axios.get(`https://qualms.uk/api/getvenues`).then((response) => {
       console.log(response); //
       let venueList = [];
       for (let i = 0; i < response.data.length; i++) {
@@ -122,15 +117,12 @@ const QualmsForm = () => {
     //set feedbackText state to empty
     setFeedbackTxt("");
 
-    await Axios.post(
-      `https://qualms.uk/api/sendqualm`,
-      {
-        feedback: feedbackTxt,
-        venue: venueTitle,
-        score: qualmScore,
-        token: reToken,
-      }
-    ).then(() => {
+    await Axios.post(`https://qualms.uk/api/sendqualm`, {
+      feedback: feedbackTxt,
+      venue: venueTitle,
+      score: qualmScore,
+      token: reToken,
+    }).then(() => {
       console.log("Qualm Posted Successfully.");
       //add error catching here
     });

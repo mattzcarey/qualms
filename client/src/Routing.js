@@ -10,6 +10,8 @@ import App from './App'
 import { VenueItem, VenueList } from './DynamicRouting';
 import About from './About';
 import SuccessPage from './Success';
+import Dashboard from './Dashboard';
+
 
 // const Routing = () => {
 function Routing() {
@@ -26,6 +28,7 @@ const Content = () => (
       <Route path="/venues/*" element={<Venue />} />
       <Route path="/about" element={<About />} />
       <Route path="/success" element={<SuccessPage/>} />
+      <Route path="/dashboard" element={<Dashboard/>} />
     </Routes>
   );
 
