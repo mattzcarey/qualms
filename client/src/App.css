@@ -116,6 +116,12 @@ body {
   
 }
 
+.add-venue {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
 .btn {
   display: inline-block;
   background: #000;

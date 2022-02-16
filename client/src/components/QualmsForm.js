@@ -11,10 +11,13 @@ import Autocomplete from "@mui/material/Autocomplete";
 import ReCAPTCHA from "react-google-recaptcha";
 import AlertDialogSlide from "./ALertDialogSlide";
 import Button from "@mui/material/Button";
+import { useCookies } from "react-cookie";
+import AddVenue from "./AddVenue";
 
 //regEx for form validation
 const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
+let count = 0;
 
 //validation
 function invalidateQualm(qualm, venue) {
@@ -76,8 +79,11 @@ const VenuesBox = memo(({ onChange, options, value }) => {
   );
 });
 
+
+
 const QualmsForm = () => {
   //use states
+  const [cookies, setCookie] = useCookies(["admin"]);
   const [venueTitle, setVenueTitle] = useState("");
   const [feedbackTxt, setFeedbackTxt] = useState("");
   const [dropdownOptions, setDropdownOptions] = useState([
@@ -85,6 +91,9 @@ const QualmsForm = () => {
   ]); //default values
   const [qualmScore, setQualmScore] = useState(50);
   const [open, setOpen] = useState(false);
+  const [openVen, setOpenVen] = useState(false);
+  count = parseInt(cookies.admin);
+  
 
   //ref for captcha
   const reRef = useRef(null);
@@ -136,6 +145,30 @@ const QualmsForm = () => {
     });
   };
 
+  const AdminRights = () => {
+    if (count > 10) {
+      console.log("adminrights granted", count);
+      return (
+        <div className="add-venue">
+          <Button variant="outlined" size="small" onClick={callAddVanue}>
+            Add Venue
+          </Button>
+        </div>
+      );
+    } else {
+      return (<></>);
+    }
+  };
+
+  const handle = () => {
+    count += 1
+    setCookie("admin", count, { path: "/", sameSite: "lax" });
+  }
+
+  const callAddVanue = () => {
+    setOpenVen(true);
+  }
+
   return (
     <div autoComplete="off" className="form-control">
       {/*By default, the component disables the input autocomplete feature (remembering what the user has typed for a given field in a previous session) with the autoComplete="off" attribute. 
@@ -149,6 +182,7 @@ const QualmsForm = () => {
           value={venueTitle}
         />
       </div>
+      <AdminRights alignItems="flex-start" />
       <br></br>
       <div>
         <QualmTextBox value={feedbackTxt} onChange={setFeedbackTxt} />
@@ -172,7 +206,13 @@ const QualmsForm = () => {
       </Box>
       <br />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant="outlined" onClick={submitQualm}>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            submitQualm();
+            handle();
+          }}
+        >
           Submit
         </Button>
       </div>
@@ -182,6 +222,7 @@ const QualmsForm = () => {
         ref={reRef}
       />
       <AlertDialogSlide open={open} setOpen={setOpen} />
+      <AddVenue openVen={openVen} setOpenVen={setOpenVen} />
     </div>
   );
 };

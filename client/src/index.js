@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routing from './Routing';
+import { CookiesProvider } from "react-cookie";
 
+const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-  <Routing/>,
-  document.getElementById('root')
+  <CookiesProvider>
+    <Routing />
+  </CookiesProvider>,
+  rootElement
 );
 

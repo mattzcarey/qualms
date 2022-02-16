@@ -4,12 +4,12 @@ import InfoIcon from '@mui/icons-material/Info';
 
 const Footer = () => {
     return (
-        <div className="footer">
-            <Link to="/about">
-                <InfoIcon/>
-            </Link>
-        </div>
-    )
+      <div className="footer">
+        <Link to="/about">
+          <InfoIcon />
+        </Link>
+      </div>
+    );
 }
 
 export default Footer
