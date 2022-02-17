@@ -16,7 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const AddVenue = ({ openVen, setOpenVen }) => {
   const [newVenueTitle, addVenueTitle] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (!newVenueTitle) {
@@ -24,13 +24,19 @@ const AddVenue = ({ openVen, setOpenVen }) => {
       return;
     }
     const config = {
-      headers: { 'x-access-token': "321captaincraCksmerryband"},
+      headers: { 
+        'content-type': 'application/json',
+        'x-access-token': process.env.REACT_APP_API_KEY
+      }
     };
     // Axios post stuff to backend.
-    Axios.post("http://localhost:3001/addvenue", {
-    config,
-    venuename: newVenueTitle,
-    }).then(() => {
+    await Axios.post(
+      "http://localhost:3001/addvenue",
+      {
+        venuename: newVenueTitle,
+      },
+      config
+    ).then(() => {
       alert("added venue successfully");
     });
   };
