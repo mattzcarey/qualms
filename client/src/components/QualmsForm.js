@@ -162,7 +162,7 @@ const QualmsForm = () => {
 
   const handle = () => {
     count += 1
-    setCookie("admin", count, { path: "/", sameSite: "lax" });
+    setCookie("admin", count, { path: "/", sameSite: "lax", secure: true });
   }
 
   const callAddVanue = () => {

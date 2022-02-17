@@ -23,12 +23,13 @@ const AddVenue = ({ openVen, setOpenVen }) => {
       alert("Empty venue");
       return;
     }
+    const config = {
+      headers: { Authorization: `token ${"321captaincraCksmerryband"}`},
+    };
     // Axios post stuff to backend.
     Axios.post("http://localhost:3001/api/addvenue", {
-      headers: {
-        'Authorization': `token ${process.env.REACT_APP_API_KEY}`
-      },
-      venuename: newVenueTitle,
+    config,
+    venuename: newVenueTitle,
     }).then(() => {
       alert("added venue successfully");
     });
