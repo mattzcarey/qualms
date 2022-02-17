@@ -24,10 +24,10 @@ const AddVenue = ({ openVen, setOpenVen }) => {
       return;
     }
     const config = {
-      headers: { Authorization: `token ${"321captaincraCksmerryband"}`},
+      headers: { 'x-access-token': "321captaincraCksmerryband"},
     };
     // Axios post stuff to backend.
-    Axios.post("http://localhost:3001/api/addvenue", {
+    Axios.post("http://localhost:3001/addvenue", {
     config,
     venuename: newVenueTitle,
     }).then(() => {

@@ -17,8 +17,6 @@ import AddVenue from "./AddVenue";
 //regEx for form validation
 const regexp = new RegExp(/^[a-zA-Z0-9.,:;()\r\n ]+$/);
 
-let count = 0;
-
 //validation
 function invalidateQualm(qualm, venue) {
   if (!regexp.test(qualm) || qualm.length === 0) {
@@ -79,8 +77,7 @@ const VenuesBox = memo(({ onChange, options, value }) => {
   );
 });
 
-
-
+let count = 0;
 const QualmsForm = () => {
   //use states
   const [cookies, setCookie] = useCookies(["admin"]);
@@ -92,8 +89,6 @@ const QualmsForm = () => {
   const [qualmScore, setQualmScore] = useState(50);
   const [open, setOpen] = useState(false);
   const [openVen, setOpenVen] = useState(false);
-  count = parseInt(cookies.admin);
-  
 
   //ref for captcha
   const reRef = useRef(null);
@@ -108,10 +103,10 @@ const QualmsForm = () => {
       for (let i = 0; i < response.data.length; i++) {
         venueList = [...venueList, response.data[i].venuename];
       }
-
+    
       setDropdownOptions(venueList);
     });
-  }, []);
+  },[]);
 
   //Main gameplay loop baby!
   const submitQualm = async () => {
@@ -146,7 +141,7 @@ const QualmsForm = () => {
   };
 
   const AdminRights = () => {
-    if (count > 10) {
+    if (count > 2) {
       console.log("adminrights granted", count);
       return (
         <div className="add-venue">
@@ -161,8 +156,8 @@ const QualmsForm = () => {
   };
 
   const handle = () => {
-    count += 1
-    setCookie("admin", count, { path: "/", sameSite: "lax", secure: true });
+    count += 1;
+    setCookie("admin", count.toString(), {path: "/", secure: true, sameSite: "lax"});
   }
 
   const callAddVanue = () => {
