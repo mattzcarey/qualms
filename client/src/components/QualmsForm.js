@@ -49,7 +49,7 @@ const QualmsForm = () => {
   //Get request for venues on page load
   useEffect(() => {
     Axios.get(
-      `https://qualms.uk/api/getvenues`
+      `https://0exqc2orli.execute-api.eu-west-2.amazonaws.com/production/getvenues`
     ).then((response) => {
       console.log(response); //
       let venueList = [];
@@ -79,8 +79,9 @@ const QualmsForm = () => {
     //set feedbackText state to empty
     setFeedbackTxt("");
 
+    //post qualm
     await Axios.post(
-      `https://qualms.uk/api/sendqualm`,
+      `https://0exqc2orli.execute-api.eu-west-2.amazonaws.com/production/sendqualm`,
       {
         feedback: feedbackTxt,
         venue: venueTitle,
