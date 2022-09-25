@@ -1,0 +1,29 @@
+org: mattzcarey
+console: true
+service: qualms-serverless
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  runtime: nodejs16.x
+  stage: production
+  region: eu-west-2
+  environment:
+    NODE_ENV: production
+
+plugins:
+  - serverless-offline
+
+functions:
+  qualms-express-app:
+    handler: handler.handler
+    events:
+      - http: 
+          path: /
+          method: any 
+          cors: true
+      - http: 
+          path: /{proxy+}
+          method: any
+          cors: true

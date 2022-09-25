@@ -103,3 +103,5 @@ async function validateHuman(reToken) {
 app.listen(config.SERVER_PORT, () => {
   console.log(`Server listening on port ${config.SERVER_PORT}`);
 });
+
+module.exports = app
