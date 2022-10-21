@@ -10,10 +10,10 @@ plugins:
   - serverless-s3-sync
 
 custom:
-    bucketName: qualms-react-bucket-34742
-    s3Sync: 
-      - bucketName: ${self:custom.bucketName}
-        localDir: build/
+  bucketName: serverless-react-app-qualms-34573
+  s3Sync:
+    - bucketName: ${self:custom.bucketName}
+      localDir: build
 
 resources:
   Resources:
@@ -28,14 +28,14 @@ resources:
     S3AccessPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
-        Bucket: 
+        Bucket:
           Ref: ReactAppBucket
-        PolicyDocument: 
+        PolicyDocument:
           Statement:
             - Sid: PublicReadGetObject
               Effect: Allow
-              Principal: '*'
-              Action: 
+              Principal: "*"
+              Action:
                 - s3:GetObject
               Resource: arn:aws:s3:::${self:custom.bucketName}/*
     CloudFrontDistribution:
@@ -49,7 +49,7 @@ resources:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only
-          Enabled: 'true'
+          Enabled: "true"
           DefaultRootObject: index.html
           CustomErrorResponses:
             - ErrorCode: 404
@@ -58,15 +58,15 @@ resources:
           DefaultCacheBehavior:
             AllowedMethods:
               - DELETE
-              - GET 
-              - HEAD 
+              - GET
+              - HEAD
               - OPTIONS
               - PATCH
               - POST
               - PUT
             TargetOriginId: ReactApp
             ForwardedValues:
-              QueryString: 'false'
+              QueryString: "false"
               Cookies:
                 Forward: none
             ViewerProtocolPolicy: redirect-to-https

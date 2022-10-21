@@ -7,11 +7,8 @@
     "provider": {
       "name": "aws",
       "runtime": "nodejs16.x",
-      "stage": "production",
+      "stage": "dev",
       "region": "eu-west-2",
-      "environment": {
-        "NODE_ENV": "production"
-      },
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
@@ -89,7 +86,7 @@
           "ReactAppBucket": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
-              "BucketName": "qualms-react-bucket-34742",
+              "BucketName": "serverless-react-app-qualms-34573",
               "AccessControl": "PublicRead",
               "WebsiteConfiguration": {
                 "IndexDocument": "index.html",
@@ -112,7 +109,7 @@
                     "Action": [
                       "s3:GetObject"
                     ],
-                    "Resource": "arn:aws:s3:::qualms-react-bucket-34742/*"
+                    "Resource": "arn:aws:s3:::serverless-react-app-qualms-34573/*"
                   }
                 ]
               }
@@ -124,7 +121,7 @@
               "DistributionConfig": {
                 "Origins": [
                   {
-                    "DomainName": "qualms-react-bucket-34742.s3.amazonaws.com",
+                    "DomainName": "serverless-react-app-qualms-34573.s3.amazonaws.com",
                     "Id": "ReactApp",
                     "CustomOriginConfig": {
                       "HTTPPort": 80,
@@ -174,7 +171,7 @@
               "Ref": "ServerlessDeploymentBucket"
             },
             "Export": {
-              "Name": "sls-qualms-client-production-ServerlessDeploymentBucketName"
+              "Name": "sls-qualms-client-dev-ServerlessDeploymentBucketName"
             }
           }
         }
@@ -263,11 +260,11 @@
       }
     },
     "custom": {
-      "bucketName": "qualms-react-bucket-34742",
+      "bucketName": "serverless-react-app-qualms-34573",
       "s3Sync": [
         {
-          "bucketName": "qualms-react-bucket-34742",
-          "localDir": "build/"
+          "bucketName": "serverless-react-app-qualms-34573",
+          "localDir": "build"
         }
       ]
     },
@@ -281,7 +278,7 @@
         "ReactAppBucket": {
           "Type": "AWS::S3::Bucket",
           "Properties": {
-            "BucketName": "qualms-react-bucket-34742",
+            "BucketName": "serverless-react-app-qualms-34573",
             "AccessControl": "PublicRead",
             "WebsiteConfiguration": {
               "IndexDocument": "index.html",
@@ -304,7 +301,7 @@
                   "Action": [
                     "s3:GetObject"
                   ],
-                  "Resource": "arn:aws:s3:::qualms-react-bucket-34742/*"
+                  "Resource": "arn:aws:s3:::serverless-react-app-qualms-34573/*"
                 }
               ]
             }
@@ -316,7 +313,7 @@
             "DistributionConfig": {
               "Origins": [
                 {
-                  "DomainName": "qualms-react-bucket-34742.s3.amazonaws.com",
+                  "DomainName": "serverless-react-app-qualms-34573.s3.amazonaws.com",
                   "Id": "ReactApp",
                   "CustomOriginConfig": {
                     "HTTPPort": 80,
@@ -383,7 +380,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/qualms-client/production/1664147138743-2022-09-25T23:05:38.743Z",
+    "artifactDirectoryName": "serverless/qualms-client/dev/1664206086537-2022-09-26T15:28:06.537Z",
     "artifact": ""
   }
 }
